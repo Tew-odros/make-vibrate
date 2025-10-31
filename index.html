@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -22,4 +22,106 @@
       navigator.vibrate(200);
     });
   </script>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Navigator Object Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+
+      button {
+        margin: 5px;
+        padding: 8px 15px;
+        border: none;
+        background-color: steelblue;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: dodgerblue;
+      }
+
+      pre {
+        background: #f9f9f9;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>🌐 Navigator Object Example</h2>
+    <button id="showInfo">Show Browser Info</button>
+    <button id="checkOnline">Check Online Status</button>
+    <button id="getLocation">Get My Location</button>
+    <button id="copyText">Copy Text to Clipboard</button>
+
+    <pre id="output">Click a button to see results...</pre>
+
+    <script>
+      const output = document.getElementById("output");
+
+      // 🧾 Show browser and device info
+      document.getElementById("showInfo").addEventListener("click", () => {
+        output.textContent = `
+🧭 Browser Information:
+User Agent: ${navigator.userAgent}
+Language:   ${navigator.language}
+Platform:   ${navigator.platform}
+Cookies:    ${navigator.cookieEnabled ? "Enabled" : "Disabled"}
+Online:     ${navigator.onLine ? "Yes" : "No"}
+      `;
+      });
+
+      // 🌐 Check online/offline status
+      document.getElementById("checkOnline").addEventListener("click", () => {
+        if (navigator.onLine) {
+          output.textContent = "✅ You are online!";
+        } else {
+          output.textContent = "❌ You are offline!";
+        }
+      });
+
+      // 📍 Get user location (if allowed)
+      document.getElementById("getLocation").addEventListener("click", () => {
+        if ("geolocation" in navigator) {
+          output.textContent = "Getting your location...";
+          navigator.geolocation.getCurrentPosition(
+            (pos) => {
+              const { latitude, longitude } = pos.coords;
+              output.textContent = `📍 Your Location:
+Latitude:  ${latitude}
+Longitude: ${longitude}`;
+            },
+            (error) => {
+              output.textContent = `⚠️ Error: ${error.message}`;
+            }
+          );
+        } else {
+          output.textContent = "Geolocation is not supported in this browser.";
+        }
+      });
+
+      // 📋 Copy text to clipboard
+      document
+        .getElementById("copyText")
+        .addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText("Hello from JavaScript!");
+            output.textContent = "✅ Text copied to clipboard!";
+          } catch (err) {
+            output.textContent =
+              "❌ Clipboard not supported or permission denied.";
+          }
+        });
+    </script>
+  </body>
 </html>
