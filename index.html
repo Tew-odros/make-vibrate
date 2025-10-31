@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practicing navigator object</title>
+  </head>
+  <body>
+    <button id="writeToClickBoard">Write To Click Board</button>
+    <button id="makeVibrat">Make Vibrat</button>
+  </body>
+
+  <script>
+    const writeToClickBoardBtn = document.getElementById("writeToClickBoard");
+    const makeVibratBtn = document.getElementById("makeVibrat");
+
+    writeToClickBoardBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText("hey there..");
+    });
+
+    makeVibratBtn.addEventListener("click", () => {
+      navigator.vibrate(200);
+    });
+  </script>
+</html>
